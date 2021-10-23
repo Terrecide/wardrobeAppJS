@@ -8,7 +8,7 @@ import "firebase/auth";
 //import "firebase/functions";
 //import "firebase/storage";
 
-import { firebaseEnvConfig } from './constants/environment';
+import firebaseEnvConfig from './constants/environment';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
