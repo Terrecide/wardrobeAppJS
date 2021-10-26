@@ -8,6 +8,7 @@ import AppNavigator from "./navigation/AppNavigator";
 import AuthNavigator from "./navigation/AuthNavigator";
 import AuthContext from "./auth/context";
 import { navigationRef } from "./navigation/rootNavigation";
+import useFonts from "./hooks/useFonts";
 
 export default function App() {
   const [user, setUser] = useState();
@@ -20,8 +21,13 @@ export default function App() {
     setLoading(false);
   }
 
+  const loadFonts = () => {
+    useFonts();
+  }
+
   useEffect(() => {
     const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
+    loadFonts();
     return subscriber;
    }, []);
 

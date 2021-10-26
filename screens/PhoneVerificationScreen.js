@@ -23,10 +23,6 @@ export default function PhoneVerificationScreen({ navigation }) {
   return (
     <KeyboardAvoidingView>
       <View style={{ padding: 20, marginTop: 50 }}>
-          <Button
-          title="Send Verification Code"
-          onPress={() => navigation.push(routes.HOME)}
-        />
         <FirebaseRecaptchaVerifierModal
           ref={recaptchaVerifier}
           firebaseConfig={firebaseConfig}

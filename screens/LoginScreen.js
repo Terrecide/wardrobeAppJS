@@ -1,14 +1,12 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native'
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler'
-import AuthContext from '../auth/context';
 import { auth } from '../firebase';
 import routes from '../navigation/routes';
 
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { setUser } = useContext(AuthContext);
 
     const handleSignIn = () => {
         auth
