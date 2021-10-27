@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native'
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler'
-import { auth } from '../firebase';
+import firebase from 'firebase/app';
 import routes from '../navigation/routes';
 
 export default function LoginScreen({ navigation }) {
@@ -9,7 +9,7 @@ export default function LoginScreen({ navigation }) {
     const [password, setPassword] = useState('');
 
     const handleSignIn = () => {
-        auth
+        firebase.auth()
         .signInWithEmailAndPassword(email, password)
         .catch(error => alert(error.message))
     }
@@ -17,7 +17,7 @@ export default function LoginScreen({ navigation }) {
     return (
         <KeyboardAvoidingView style={styles.container}>
             <View style={styles.inputContainer}>
-                <Text>Login to the app</Text>
+                <Text>Вход за приложението</Text>
                 <TextInput 
                     placeholder="Email"
                     value={email}
@@ -37,10 +37,10 @@ export default function LoginScreen({ navigation }) {
                     onPress={handleSignIn}
                     style={styles.button}
                 >
-                    <Text style={styles.text}>Login</Text>
+                    <Text style={styles.text}>Вход</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={() => navigation.push(routes.REGISTER)}
+                    onPress={() => navigation.push(routes.PHONE_VERIFICATION)}
                     style={[styles.button, styles.buttonOutline]}
                 >
                     <Text style={styles.textOutline}>Have an account? Sign up!</Text>

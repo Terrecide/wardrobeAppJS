@@ -11,16 +11,16 @@ const WelcomeScreen = ({ navigation }) => {
             <View style={styles.container}>
                 <Text style={[{fontSize: fontSizes.xl, color: colors.black}, {fontFamily: 'DMSerif-Italic'}]}>Wardrobe</Text>
                 <Text>КУПИ. ПРОДАЙ.</Text>
-                <Text>НАМЕРИ УНИКАЛЕН СТИЛ.</Text>
+                <Text>НАМЕРИ НОВ УНИКАЛЕН СТИЛ.</Text>
             </View>
             <View style={styles.container}>
-                <Text style={[{fontSize: fontSizes.regular}, styles.textMedium]}>Have an account?</Text>
-                <TouchableOpacity style={styles.buttonPrimary} title="Sign In" onPress={() => navigation.push(routes.LOGIN)}>
-                    <Text style={styles.buttonPrimaryText}>Sign in</Text>
+                <Text style={[{fontSize: fontSizes.regular}, styles.textMedium]}>Вече имате профил?</Text>
+                <TouchableOpacity style={styles.buttonPrimary} title="Login" onPress={() => navigation.push(routes.LOGIN)}>
+                    <Text style={styles.buttonPrimaryText}>Вход</Text>
                 </TouchableOpacity>
-                <Text style={[{fontSize: fontSizes.regular, marginTop: paddings.regular}, styles.textMedium]}>New to the platform?</Text>
-                <TouchableOpacity style={styles.buttonSecondary} title="Sign up" onPress={() => navigation.push(routes.REGISTER)}>
-                    <Text style={styles.buttonSecondaryText}>Sign up</Text>
+                <Text style={[{fontSize: fontSizes.regular, marginTop: paddings.regular}, styles.textMedium]}>Все още нямате профил?</Text>
+                <TouchableOpacity style={styles.buttonSecondary} title="Register" onPress={() => navigation.push(routes.PHONE_VERIFICATION)}>
+                    <Text style={styles.buttonSecondaryText}>Регистрация</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>

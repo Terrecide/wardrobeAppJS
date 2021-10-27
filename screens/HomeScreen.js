@@ -1,22 +1,22 @@
 import React, { useContext } from 'react'
-import { Button, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 import AuthContext from '../auth/context';
-import { auth } from '../firebase';
-import routes from '../navigation/routes';
+import firebase from 'firebase/app';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
     const { user } = useContext(AuthContext);
 
     return (
-        <KeyboardAvoidingView>
+        <SafeAreaView>
             <View>
-                <Text>Welcome to the app!</Text>
-                <Text>Logged in as user: {user.email}</Text>
-                <Button title="Sign Out" onPress={async () => {
-                    await auth.signOut()
-                }}>Sign in</Button>
+                <Text>Добре дошли в Wardrobe!</Text>
+                <Text>Усер: {user.email}</Text>
+                <Button title="Изход" onPress={async () => {
+                    await firebase.auth().signOut()
+                }}>Изход от профил</Button>
             </View>
-        </KeyboardAvoidingView>
+        </SafeAreaView>
     )
 }
 

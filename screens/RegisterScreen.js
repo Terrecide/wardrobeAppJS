@@ -1,35 +1,39 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import AuthContext from '../auth/context';
-import { auth } from '../firebase'
 import routes from '../navigation/routes';
+import firebase from 'firebase/app';
 
 const RegisterScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { setUser } = useContext(AuthContext);
 
-    const handleSignUp = async () => {
+    const createAndLinkUser = async () => {
         try {
-            await auth.createUserWithEmailAndPassword(email, password);
-            await auth.signInWithEmailAndPassword(email, password);
+            const credential = firebase.auth.EmailAuthProvider.credential(email, password);
+            await firebase.auth().currentUser.linkWithCredential(credential);
+            navigation.replace(routes.HOME);
         } catch (error) {
-            alert(error.message)
+            if(error.code === 'auth/requires-recent-login') {
+                await firebase.auth().signOut();
+                navigation.navigate(routes.PHONE_VERIFICATION, {requiresLogin: true});
+                return;
+            }
+            alert(error.message);
         }
     }
 
     return (
         <KeyboardAvoidingView style={styles.container}>
         <View style={styles.inputContainer}>
-            <Text>Register for the app!</Text>
+            <Text>За да ползвате приложението ни трябва малко повече информация!</Text>
             <TextInput 
-                placeholder="Email"
+                placeholder="Имейл"
                 value={email}
                 onChangeText={text => setEmail(text)}
                 style={styles.input}
             />
             <TextInput 
-                placeholder="Password"
+                placeholder="Парола"
                 value={password}
                 onChangeText={text => setPassword(text)}
                 secureTextEntry
@@ -38,10 +42,10 @@ const RegisterScreen = ({ navigation }) => {
         </View>
         <View style={styles.buttonContainer}>
             <TouchableOpacity
-                onPress={handleSignUp}
+                onPress={createAndLinkUser}
                 style={styles.button}
             >
-                <Text style={styles.text}>Register</Text>
+                <Text style={styles.text}>Регистрация</Text>
             </TouchableOpacity>
         </View>
     </KeyboardAvoidingView>
