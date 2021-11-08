@@ -1,6 +1,8 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import AppButton from '../components/Button'
+import AppText from '../components/Text'
 import { colors, fontSizes, paddings } from '../config/styles'
 import routes from '../navigation/routes'
 
@@ -9,19 +11,15 @@ const WelcomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={{justifyContent: 'space-around', flexDirection: 'column', flex: 1}}>
             <View style={styles.container}>
-                <Text style={[{fontSize: fontSizes.xl, color: colors.black}, {fontFamily: 'DMSerif-Italic'}]}>Wardrobe</Text>
-                <Text>КУПИ. ПРОДАЙ.</Text>
-                <Text>НАМЕРИ НОВ УНИКАЛЕН СТИЛ.</Text>
+                <AppText style={[{fontSize: fontSizes.xl, color: colors.black}, {fontFamily: 'DMSerif-Italic'}]}>Wardrobe</AppText>
+                <AppText>КУПИ. ПРОДАЙ.</AppText>
+                <AppText>НАМЕРИ НОВ УНИКАЛЕН СТИЛ.</AppText>
             </View>
             <View style={styles.container}>
-                <Text style={[{fontSize: fontSizes.regular}, styles.textMedium]}>Вече имате профил?</Text>
-                <TouchableOpacity style={styles.buttonPrimary} title="Login" onPress={() => navigation.push(routes.LOGIN)}>
-                    <Text style={styles.buttonPrimaryText}>Вход</Text>
-                </TouchableOpacity>
-                <Text style={[{fontSize: fontSizes.regular, marginTop: paddings.regular}, styles.textMedium]}>Все още нямате профил?</Text>
-                <TouchableOpacity style={styles.buttonSecondary} title="Register" onPress={() => navigation.push(routes.PHONE_VERIFICATION)}>
-                    <Text style={styles.buttonSecondaryText}>Регистрация</Text>
-                </TouchableOpacity>
+                <AppText>Вече имате профил?</AppText>
+                <AppButton onPress={() => navigation.push(routes.LOGIN)} title="Вход"/>
+                <AppText style={[{marginTop: paddings.regular}]}>Все още нямате профил?</AppText>
+                <AppButton onPress={() => navigation.push(routes.PHONE_VERIFICATION)} type="secondary" title="Регистрация"/>
             </View>
         </SafeAreaView>
     )
@@ -32,36 +30,5 @@ export default WelcomeScreen
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-    },
-    textMedium: {
-        color: colors.medium
-    },
-    buttonPrimary: {
-        width: '50%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colors.black,
-        paddingVertical: paddings.small,
-        borderRadius: 2
-    },
-    buttonPrimaryText: {
-        color: colors.white,
-        fontSize: fontSizes.large,
-        fontWeight: 'bold'
-    },
-    buttonSecondary: {
-        width: '50%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colors.white,
-        paddingVertical: paddings.small,
-        borderColor: colors.black,
-        borderWidth: 1,
-        borderRadius: 2
-    },
-    buttonSecondaryText: {
-        color: colors.black,
-        fontSize: fontSizes.large,
-        fontWeight: 'bold'
     },
 })

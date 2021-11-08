@@ -1,15 +1,16 @@
 const colors = {
-  primary: "#fc5c65",
-  secondary: "#4ecdc4",
+  primary: "#ffea00",
+  secondary: "#fffbe3",
   black: "#000",
   white: "#fff",
-  medium: "#6e6969",
-  light: "#f8f4f4",
-  dark: "#0c0c0c",
-  danger: "#ff5252",
+  darkgrey: "#292929",
+  grey: "#919191",
+  success: "#61d117",
+  danger: "#d9542b"
 };
 
 const fontSizes = {
+  xs: 4,
   small: 8,
   regular: 16,
   large: 24,
@@ -17,10 +18,16 @@ const fontSizes = {
 }
 
 const paddings = {
+  xs: 4,
   small: 8,
   regular: 16,
   large: 24,
   xl: 36
 }
 
-export { colors, fontSizes, paddings }
+const defaultText = {
+  color: colors.darkgrey,
+  fontSize: fontSizes.regular,
+}
+
+export { colors, fontSizes, paddings, defaultText }

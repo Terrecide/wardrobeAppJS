@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native'
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler'
+import { KeyboardAvoidingView, StyleSheet, View } from 'react-native'
+import { TextInput } from 'react-native-gesture-handler'
 import firebase from 'firebase/app';
-import routes from '../navigation/routes';
+import AppButton from '../components/Button';
 
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState('');
@@ -15,9 +15,8 @@ export default function LoginScreen({ navigation }) {
     }
 
     return (
-        <KeyboardAvoidingView style={styles.container}>
+        <KeyboardAvoidingView>
             <View style={styles.inputContainer}>
-                <Text>Вход за приложението</Text>
                 <TextInput 
                     placeholder="Email"
                     value={email}
@@ -33,34 +32,15 @@ export default function LoginScreen({ navigation }) {
                 />
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                    onPress={handleSignIn}
-                    style={styles.button}
-                >
-                    <Text style={styles.text}>Вход</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => navigation.push(routes.PHONE_VERIFICATION)}
-                    style={[styles.button, styles.buttonOutline]}
-                >
-                    <Text style={styles.textOutline}>Have an account? Sign up!</Text>
-                </TouchableOpacity>
+                <AppButton onPress={handleSignIn} title='Вход'/>
             </View>
         </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     buttonContainer: {
-        width: '60%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 40,
+        alignItems: 'center'
     },
     button: {
         backgroundColor: 'blue',
