@@ -1,39 +1,63 @@
 import React, { useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, View } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
 import firebase from 'firebase/app';
-import AppButton from '../components/Button';
+import * as Yup from "yup";
+import {
+    ErrorMessage,
+    Form,
+    FormField,
+    SubmitButton,
+} from "../components/forms";
 
 export default function LoginScreen({ navigation }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [loginFailed, setLoginFailed] = useState(false);
 
-    const handleSignIn = () => {
+    const validationSchema = Yup.object().shape({
+        email: Yup.string().required('Полето е задължително').email('Въведете валиден Имейл').label("Email"),
+        password: Yup.string().required('Полето е задължително').min(4, 'Въведете минимум 4 символа').label("Password"),
+    });
+
+    const handleSignIn = ({ email, password }) => {
+        console.log(email, password)
+        setLoginFailed(false);
         firebase.auth()
         .signInWithEmailAndPassword(email, password)
-        .catch(error => alert(error.message))
+        .catch(error => {
+            setLoginFailed(true)
+        })
     }
 
     return (
-        <KeyboardAvoidingView>
-            <View style={styles.inputContainer}>
-                <TextInput 
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={text => setEmail(text)}
-                    style={styles.input}
+        <KeyboardAvoidingView style={{padding: 10}}>
+            <Form
+                initialValues={{ email: "", password: "" }}
+                onSubmit={handleSignIn}
+                validationSchema={validationSchema}
+            >
+                <FormField
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    icon="email"
+                    keyboardType="email-address"
+                    name="email"
+                    placeholder="Имейл"
+                    textContentType="emailAddress"
                 />
-                <TextInput 
-                    placeholder="Password"
-                    value={password}
-                    onChangeText={text => setPassword(text)}
-                    style={styles.input}
+                <FormField
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    icon="lock"
+                    name="password"
+                    placeholder="Парола"
                     secureTextEntry
+                    textContentType="password"
                 />
-            </View>
-            <View style={styles.buttonContainer}>
-                <AppButton onPress={handleSignIn} title='Вход'/>
-            </View>
+                <ErrorMessage
+                    error="Неправилен имейл и/или парола."
+                    visible={loginFailed}
+                />
+                <SubmitButton title="Вход" />
+            </Form>
         </KeyboardAvoidingView>
     )
 }
