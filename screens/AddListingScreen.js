@@ -59,6 +59,8 @@ const AddListingScreen = () => {
                             icon="file-document-edit-outline"
                             name="description"
                             placeholder="Описание"
+                            multiline={true}
+                            maxLength={140}
                         />
                         <ErrorMessage
                             error="Нещо се обърка моля опитайте по-късно."

@@ -17,7 +17,10 @@ function AppTextInput({ icon, width = "100%", ...otherProps }) {
       )}
       <TextInput
         placeholderTextColor={colors.grey}
-        style={defaultText}
+        style={[defaultText, {
+          flex: 1,
+          padding: 15,
+        }]}
         width={width}
         {...otherProps}
       />
@@ -30,11 +33,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.secondary,
     borderRadius: 25,
     flexDirection: "row",
-    padding: 15,
-    marginVertical: 10
+    marginVertical: 10,
   },
   icon: {
-    marginRight: 10,
+    alignSelf: 'center',
+    marginLeft: 15
   },
 });
 

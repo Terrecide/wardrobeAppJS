@@ -49,7 +49,9 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase'
     },
     buttonDisabled: {
-      opacity: 0.3
+      opacity: 0.3,
+      backgroundColor: colors.grey,
+      borderWidth: 0
     }
 });
 
