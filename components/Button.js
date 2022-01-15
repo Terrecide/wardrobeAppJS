@@ -3,10 +3,11 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import { colors, fontSizes, paddings } from "../config/styles";
 
-function AppButton({ style, title, onPress, type = "primary" }) {
+function AppButton({ style, title, onPress, disabled, type = "primary" }) {
   return (
     <TouchableOpacity
-      style={[type === "primary" ? styles.buttonPrimary : styles.buttonSecondary, style]}
+      disabled={disabled}
+      style={[type === "primary" ? styles.buttonPrimary : styles.buttonSecondary, disabled ? styles.buttonDisabled : '', style]}
       onPress={onPress}
     >
       <Text style={[type === "primary" ? styles.buttonPrimaryText : styles.buttonSecondaryText, style]}>{title}</Text>
@@ -47,6 +48,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textTransform: 'uppercase'
     },
+    buttonDisabled: {
+      opacity: 0.3
+    }
 });
 
 export default AppButton;

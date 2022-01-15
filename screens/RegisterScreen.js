@@ -11,7 +11,7 @@ const RegisterScreen = ({ navigation }) => {
         try {
             const credential = firebase.auth.EmailAuthProvider.credential(email, password);
             await firebase.auth().currentUser.linkWithCredential(credential);
-            navigation.replace(routes.HOME);
+            navigation.replace(routes.FEED);
         } catch (error) {
             if(error.code === 'auth/requires-recent-login') {
                 await firebase.auth().signOut();

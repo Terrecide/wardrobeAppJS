@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, View } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet } from 'react-native'
 import firebase from 'firebase/app';
 import * as Yup from "yup";
 import {
     ErrorMessage,
-    Form,
     FormField,
     SubmitButton,
 } from "../components/forms";
+import { Formik } from "formik";
 
 export default function LoginScreen({ navigation }) {
     const [loginFailed, setLoginFailed] = useState(false);
@@ -29,35 +29,39 @@ export default function LoginScreen({ navigation }) {
 
     return (
         <KeyboardAvoidingView style={{padding: 10}}>
-            <Form
+            <Formik
                 initialValues={{ email: "", password: "" }}
                 onSubmit={handleSignIn}
                 validationSchema={validationSchema}
             >
-                <FormField
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    icon="email"
-                    keyboardType="email-address"
-                    name="email"
-                    placeholder="Имейл"
-                    textContentType="emailAddress"
-                />
-                <FormField
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    icon="lock"
-                    name="password"
-                    placeholder="Парола"
-                    secureTextEntry
-                    textContentType="password"
-                />
-                <ErrorMessage
-                    error="Неправилен имейл и/или парола."
-                    visible={loginFailed}
-                />
-                <SubmitButton title="Вход" />
-            </Form>
+                {props => (
+                    <>
+                        <FormField
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            icon="email"
+                            keyboardType="email-address"
+                            name="email"
+                            placeholder="Имейл"
+                            textContentType="emailAddress"
+                        />
+                        <FormField
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            icon="lock"
+                            name="password"
+                            placeholder="Парола"
+                            secureTextEntry
+                            textContentType="password"
+                        />
+                        <ErrorMessage
+                            error="Неправилен имейл и/или парола."
+                            visible={loginFailed}
+                        />
+                        <SubmitButton disabled={!(props.dirty && props.isValid)}  title="Вход" />
+                    </>
+                )}
+            </Formik>
         </KeyboardAvoidingView>
     )
 }
