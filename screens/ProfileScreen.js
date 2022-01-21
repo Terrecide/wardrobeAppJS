@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
 import AuthContext from '../auth/context';
-import firebase from 'firebase/app';
+import { auth } from '../firebase'
 
 const ProfileScreen = () => {
     const { user } = useContext(AuthContext);
@@ -11,7 +11,7 @@ const ProfileScreen = () => {
             <Text>Profile Screen</Text>
             <Text>Усер: {user.email}</Text>
             <Button title="Изход" onPress={async () => {
-                await firebase.auth().signOut()
+                await auth.signOut()
             }}>Изход от профил</Button>
         </View>
     )

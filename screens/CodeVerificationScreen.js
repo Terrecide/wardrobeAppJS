@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView,
   } from 'react-native';
-import firebase from 'firebase/app'
+import firebase from 'firebase/app';
+import { auth } from '../firebase';
 
 const CodeVerificationScreen = ({ route }) => {
     const [verificationCode, setVerificationCode] = useState();
@@ -32,7 +33,7 @@ const CodeVerificationScreen = ({ route }) => {
                                 route.params.verificationId,
                                 verificationCode
                             );
-                            await firebase.auth().signInWithCredential(credential);
+                            await auth.signInWithCredential(credential);
                         } catch (err) {
                             showMessage({ text: `Error: ${err.message}`, color: 'red' });
                         }

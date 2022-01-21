@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import routes from '../navigation/routes';
 import firebase from 'firebase/app';
+import { auth } from '../firebase';
 
 const RegisterScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -10,11 +11,11 @@ const RegisterScreen = ({ navigation }) => {
     const createAndLinkUser = async () => {
         try {
             const credential = firebase.auth.EmailAuthProvider.credential(email, password);
-            await firebase.auth().currentUser.linkWithCredential(credential);
-            navigation.replace(routes.FEED);
+            await auth.currentUser.linkWithCredential(credential);
+            navigation.replace(routes.HOME_TABS);
         } catch (error) {
             if(error.code === 'auth/requires-recent-login') {
-                await firebase.auth().signOut();
+                await auth.signOut();
                 navigation.navigate(routes.PHONE_VERIFICATION, {requiresLogin: true});
                 return;
             }

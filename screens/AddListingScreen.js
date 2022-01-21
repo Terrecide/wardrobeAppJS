@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet } from 'react-native'
-import firebase from 'firebase/app';
+import { KeyboardAvoidingView, StyleSheet, Alert } from 'react-native'
 import * as Yup from "yup";
 import {
     ErrorMessage,
@@ -9,44 +8,45 @@ import {
 } from "../components/forms";
 import AuthContext from '../auth/context';
 import { Formik } from "formik";
+import FormImagePicker from '../components/forms/FormImagePicker';
+import { db, serverTimestamp } from '../firebase';
 
 const AddListingScreen = () => {
     const { user } = useContext(AuthContext);
     const [creationFailed, setCreationFailed] = useState(false);
 
-    const { serverTimestamp } = firebase.firestore.FieldValue;
-    const db = firebase.firestore();
-    const listingsRef = db.collection('listings');
-
     const validationSchema = Yup.object().shape({
+        images: Yup.array().min(1, "Моля изберете поне една снимка."),
         name: Yup.string().required('Полето е задължително').min(4, 'Въведете минимум 4 символа').label("Name"),
         description: Yup.string().required('Полето е задължително').min(4, 'Въведете минимум 4 символа').label("Description"),
     });
 
-    const handleSignIn = (data, {resetForm}) => {
-        setCreationFailed(false);
-        data.createdAt = serverTimestamp();
-
-        listingsRef.add(data)
-        .then(() => {
-            resetForm({})
+    const handleSignIn = async (data, {resetForm}) => {
+        try {
             setCreationFailed(false);
+
+            data.createdAt = serverTimestamp();
+            await db.collection('listings').add(data);
+            
+            resetForm({ images: [], name: "", description: "", uid: user.uid });
             alert('Успешно създадохте обява.');
-        }).catch(error => {
-            console.log(error)
+        } catch (error) {
             setCreationFailed(true)
-        })
+            console.log("Error creating document: ", error);
+            
+        }
     }
 
     return (
         <KeyboardAvoidingView style={{padding: 10}}>
             <Formik
-                initialValues={{ name: "", description: "", uid: user.uid }}
+                initialValues={{ images: [], name: "", description: "", uid: user.uid }}
                 onSubmit={handleSignIn}
                 validationSchema={validationSchema}
             >
                 {props => (
                     <>
+                        <FormImagePicker name="images" />
                         <FormField
                             autoCorrect={false}
                             icon="grease-pencil"

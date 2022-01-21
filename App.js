@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import AppLoading from 'expo-app-loading';
-import firebase from 'firebase/app'
 
 import navigationTheme from "./navigation/navigationTheme";
 import AppNavigator from "./navigation/AppNavigator";
@@ -9,6 +8,7 @@ import AuthNavigator from "./navigation/AuthNavigator";
 import AuthContext from "./auth/context";
 import { navigationRef } from "./navigation/rootNavigation";
 import useFonts from "./hooks/useFonts";
+import { auth } from './firebase';
 
 export default function App() {
   const [user, setUser] = useState();
@@ -26,7 +26,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
+    const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
     loadFonts();
     return subscriber;
    }, []);

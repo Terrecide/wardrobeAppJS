@@ -1,32 +1,15 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FlatList, SafeAreaView, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import routes from '../navigation/routes';
+import { db } from '../firebase';
+import AuthContext from '../auth/context';
 
-const DATA = [
-    {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      title: "First Item",
-    },
-    {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      title: "Second Item",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      title: "Third Item",
-    },
-    {
-        id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-        title: "First Item",
-    },
-];
-
-function Listing() {
+function Listing({listingData}) {
   const navigation = useNavigation();
 
   function onPress() {
-      navigation.push(routes.LISTING_DETAILS);
+      navigation.push(routes.LISTING_DETAILS, { listingData: listingData });
   }
 
   return (
@@ -37,16 +20,31 @@ function Listing() {
 }
 
 export default function Listings() {
+    const [listings, setListings] = useState([]);
+    const { user } = useContext(AuthContext);
+    
+    useEffect(() => {
+      const subscriber = db.collection("listings").where("uid", "==", user.uid).orderBy("createdAt", "desc").onSnapshot((snapshot) => {
+        const tempListings = [];
+        snapshot.forEach(doc => {
+          tempListings.push({...doc.data(), id: doc.id});
+        })
+        setListings(tempListings);
+      })
+
+      return subscriber
+    }, [])
+
     return (
-        <SafeAreaView style={styles.container}>
+        <>
           <FlatList
-            data={DATA}
-            renderItem={() => (<Listing />)}
+            data={listings}
+            renderItem={(data) => (<Listing listingData={data.item}/>)}
             keyExtractor={(item) => item.id}
             numColumns={3}
             horizontal={false}
           />
-        </SafeAreaView>
+        </>
       );
 }
 

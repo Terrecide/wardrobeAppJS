@@ -7,10 +7,7 @@ const HomeScreen = () => {
 
     return (
         <SafeAreaView>
-            <View>
-                <Text>Добре дошли в Wardrobe!</Text>
-                <Listings />
-            </View>
+            <Listings />
         </SafeAreaView>
     )
 }

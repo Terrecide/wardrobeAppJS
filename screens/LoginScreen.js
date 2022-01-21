@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet } from 'react-native'
-import firebase from 'firebase/app';
 import * as Yup from "yup";
 import {
     ErrorMessage,
@@ -8,6 +7,7 @@ import {
     SubmitButton,
 } from "../components/forms";
 import { Formik } from "formik";
+import { auth } from '../firebase';
 
 export default function LoginScreen({ navigation }) {
     const [loginFailed, setLoginFailed] = useState(false);
@@ -20,7 +20,7 @@ export default function LoginScreen({ navigation }) {
     const handleSignIn = ({ email, password }) => {
         console.log(email, password)
         setLoginFailed(false);
-        firebase.auth()
+        auth
         .signInWithEmailAndPassword(email, password)
         .catch(error => {
             setLoginFailed(true)

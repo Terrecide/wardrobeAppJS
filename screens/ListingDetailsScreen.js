@@ -1,10 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-export default function ListingDetailsScreen() {
+export default function ListingDetailsScreen({ route }) {
     return (
         <View>
-            <Text>Listing works</Text>
+            <Text>{route.params.listingData.name}</Text>
         </View>
     )
 }
