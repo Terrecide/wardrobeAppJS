@@ -9,6 +9,9 @@ import AuthContext from "./auth/context";
 import { navigationRef } from "./navigation/rootNavigation";
 import useFonts from "./hooks/useFonts";
 import { auth } from './firebase';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs(['Setting a timer']);
 
 export default function App() {
   const [user, setUser] = useState();

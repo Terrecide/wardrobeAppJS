@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { FlatList, SafeAreaView, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { FlatList, SafeAreaView, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import routes from '../navigation/routes';
 import { db } from '../firebase';
@@ -13,8 +13,13 @@ function Listing({listingData}) {
   }
 
   return (
-      <TouchableOpacity onPress={onPress} style={{ maxWidth: '33%', maxHeight: 150, borderColor: 'white', borderWidth: 1 }}>
-          <Image source={require('../assets/clothing_photo.jpg')} resizeMode={'stretch'} style={{ maxWidth: '100%', height: '100%' }} />
+      <TouchableOpacity onPress={onPress} style={{flex: 1, maxWidth: '33%', maxHeight: 150, borderColor: 'white', borderWidth: 1 }}>
+          <Image 
+          source={{
+            uri: listingData.images[0].url
+          }}
+          resizeMode={'cover'} 
+          style={{ maxWidth: '100%', height: '100%' }} />
       </TouchableOpacity>
   )
 }

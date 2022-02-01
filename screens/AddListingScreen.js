@@ -9,7 +9,7 @@ import {
 import AuthContext from '../auth/context';
 import { Formik } from "formik";
 import FormImagePicker from '../components/forms/FormImagePicker';
-import { db, serverTimestamp } from '../firebase';
+import { db, storage, serverTimestamp } from '../firebase';
 
 const AddListingScreen = () => {
     const { user } = useContext(AuthContext);
@@ -26,6 +26,7 @@ const AddListingScreen = () => {
             setCreationFailed(false);
 
             data.createdAt = serverTimestamp();
+            data.images = await uploadImages(data.images);
             await db.collection('listings').add(data);
             
             resetForm({ images: [], name: "", description: "", uid: user.uid });
@@ -35,6 +36,25 @@ const AddListingScreen = () => {
             console.log("Error creating document: ", error);
             
         }
+    }
+
+    const uploadImages = async (imageUris) => {
+        let uploadedImages = [];
+        const storageRef = storage.ref();
+        for (let index = 0; index < imageUris.length; index++) {
+            const imageUri = imageUris[index];
+            const name = imageUri.substr(imageUri.lastIndexOf('/')+1);
+            const response = await fetch(imageUri);
+            const blob = await response.blob();
+
+            const fileRef = storageRef.child('images/'+ user.uid + '/' + name)
+            await fileRef.put(blob);
+            uploadedImages.push({
+                name: name,
+                url: await fileRef.getDownloadURL()
+            })
+        }
+        return uploadedImages
     }
 
     return (
