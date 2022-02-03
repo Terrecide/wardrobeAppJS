@@ -17,11 +17,12 @@ function AppButton({ style, title, onPress, disabled, type = "primary" }) {
 
 const styles = StyleSheet.create({
     buttonPrimary: {
-        width: '50%',
+        minWidth: '50%',
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.primary,
         paddingVertical: paddings.small,
+        paddingHorizontal: paddings.small,
         borderColor: colors.primary,
         borderWidth: 1,
         borderRadius: 2
@@ -30,14 +31,15 @@ const styles = StyleSheet.create({
         color: colors.darkgrey,
         fontSize: fontSizes.large,
         fontWeight: 'bold',
-        textTransform: 'uppercase'
+        textTransform: 'uppercase',
     },
     buttonSecondary: {
-        width: '50%',
+        minWidth: '50%',
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.darkgrey,
         paddingVertical: paddings.small,
+        paddingHorizontal: paddings.small,
         borderColor: colors.black,
         borderWidth: 1,
         borderRadius: 2

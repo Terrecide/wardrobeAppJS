@@ -2,30 +2,30 @@ import React, { useState } from 'react'
 import {
     Text,
     View,
-    TextInput,
-    Button,
     StyleSheet,
     TouchableOpacity,
     KeyboardAvoidingView,
   } from 'react-native';
 import firebase from 'firebase/app';
 import { auth } from '../firebase';
+import AppText from "../components/Text";
+import TextInput from "../components/TextInput";
+import AppButton from '../components/Button';
 
 const CodeVerificationScreen = ({ route }) => {
     const [verificationCode, setVerificationCode] = useState();
     const [message, showMessage] = useState(undefined);
 
     return (
-        <KeyboardAvoidingView>
-            <View>
-                <Text style={{ marginTop: 20 }}>Потвърди код за номер: {route.params.phoneNumber}</Text>
-                <Text style={{ marginTop: 20 }}>Код за потвърждение</Text>
+        <KeyboardAvoidingView style={{padding: 10}}>
+            <View style={{alignItems: 'center'}}>
+                <AppText style={{ fontWeight: 'bold' }}>Кодът е изпратен на номер: {route.params.phoneNumber}</AppText>
                 <TextInput
-                    style={{ marginVertical: 10, fontSize: 17 }}
                     placeholder="123456"
                     onChangeText={setVerificationCode}
                 />
-                <Button
+                <AppButton
+                    disabled={!verificationCode}
                     title="Потвърди код"
                     onPress={async () => {
                         try {
