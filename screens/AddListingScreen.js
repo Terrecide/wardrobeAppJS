@@ -9,7 +9,7 @@ import {
 import AuthContext from '../auth/context';
 import { Formik } from "formik";
 import FormImagePicker from '../components/forms/FormImagePicker';
-import { db, storage, serverTimestamp } from '../firebase';
+import { db, storage, fireStoreFieldValue } from '../firebase';
 
 const AddListingScreen = () => {
     const { user } = useContext(AuthContext);
@@ -25,7 +25,7 @@ const AddListingScreen = () => {
         try {
             setCreationFailed(false);
 
-            data.createdAt = serverTimestamp();
+            data.createdAt = fireStoreFieldValue.serverTimestamp();
             data.images = await uploadImages(data.images);
             await db.collection('listings').add(data);
             

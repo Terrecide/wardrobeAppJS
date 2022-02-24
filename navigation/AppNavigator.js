@@ -17,7 +17,7 @@ const Tab = createBottomTabNavigator();
 
 function HomeTabs() {
     return (
-      <Tab.Navigator tabBarOptions={{inactiveTintColor: colors.black}} screenOptions={{tabBarShowLabel: false }}>
+      <Tab.Navigator screenOptions={{tabBarShowLabel: false, tabBarInactiveTintColor: colors.black }}>
         <Tab.Screen options={{tabBarIcon: ({size, color}) => <Ionicons name="home-outline" size={size} color={color} />, headerShown: false}} name={routes.FEED} component={FeedNavigator} />
         <Tab.Screen options={{tabBarIcon: ({size, color}) => <Ionicons name="search-outline" size={size} color={color} />}} name={routes.SEARCH} component={SearchScreen} />
         <Tab.Screen options={{tabBarIcon: ({size, color}) => <Ionicons name="add-circle" size={size*2} color={color} />}} name={routes.ADD_LISTING} component={AddListingScreen} />

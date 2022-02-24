@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-import { colors, fontSizes, paddings } from "../config/styles";
+import { colors, fontSizes, spacing } from "../config/styles";
 
 function AppButton({ style, title, onPress, disabled, type = "primary" }) {
   return (
@@ -10,7 +10,7 @@ function AppButton({ style, title, onPress, disabled, type = "primary" }) {
       style={[type === "primary" ? styles.buttonPrimary : styles.buttonSecondary, disabled ? styles.buttonDisabled : '', style]}
       onPress={onPress}
     >
-      <Text style={[type === "primary" ? styles.buttonPrimaryText : styles.buttonSecondaryText, style]}>{title}</Text>
+      <Text style={[type === "primary" ? styles.buttonPrimaryText : styles.buttonSecondaryText]}>{title}</Text>
     </TouchableOpacity>
   );
 }
@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.primary,
-        paddingVertical: paddings.small,
-        paddingHorizontal: paddings.small,
+        paddingVertical: spacing.small,
+        paddingHorizontal: spacing.small,
         borderColor: colors.primary,
         borderWidth: 1,
         borderRadius: 2
@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.darkgrey,
-        paddingVertical: paddings.small,
-        paddingHorizontal: paddings.small,
+        paddingVertical: spacing.small,
+        paddingHorizontal: spacing.small,
         borderColor: colors.black,
         borderWidth: 1,
         borderRadius: 2

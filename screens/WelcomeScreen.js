@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import AppButton from '../components/Button'
 import AppText from '../components/Text'
-import { colors, fontSizes, paddings } from '../config/styles'
+import { colors, fontSizes, spacing } from '../config/styles'
 import routes from '../navigation/routes'
 
 const WelcomeScreen = ({ navigation }) => {
@@ -18,7 +18,7 @@ const WelcomeScreen = ({ navigation }) => {
             <View style={styles.container}>
                 <AppText>Вече имате профил?</AppText>
                 <AppButton onPress={() => navigation.push(routes.LOGIN)} title="Вход"/>
-                <AppText style={[{marginTop: paddings.regular}]}>Все още нямате профил?</AppText>
+                <AppText style={[{marginTop: spacing.regular}]}>Все още нямате профил?</AppText>
                 <AppButton onPress={() => navigation.push(routes.PHONE_VERIFICATION)} type="secondary" title="Регистрация"/>
             </View>
         </SafeAreaView>

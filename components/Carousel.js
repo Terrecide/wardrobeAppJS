@@ -4,7 +4,7 @@ import Constants from 'expo-constants';
 import { colors } from '../config/styles';
 
 const { width } = Dimensions.get('window');
-const height = width * 0.8;
+const height = width * 1;
 
 const Carousel = ({images}) => {
     if (!images) {
@@ -30,7 +30,7 @@ const Carousel = ({images}) => {
                 scrollEventThrottle={16} // this will ensure that this ScrollView's onScroll prop is called no faster than 16ms between each function call
             >
                 {images.map((image, i) => (
-                    <Image key={i} style={styles.image} resizeMode={'stretch'} source={{ uri: image.url }} />
+                    <Image key={i} style={styles.image} source={{ uri: image.url }} />
                 ))}
             </ScrollView>
             <View style={styles.dotContainer}>

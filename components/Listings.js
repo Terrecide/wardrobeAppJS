@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { FlatList, SafeAreaView, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
+import React from 'react'
+import { FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import routes from '../navigation/routes';
-import { db } from '../firebase';
-import AuthContext from '../auth/context';
 
 function Listing({listingData}) {
   const navigation = useNavigation();
@@ -24,26 +22,11 @@ function Listing({listingData}) {
   )
 }
 
-export default function Listings() {
-    const [listings, setListings] = useState([]);
-    const { user } = useContext(AuthContext);
-    
-    useEffect(() => {
-      const subscriber = db.collection("listings").where("uid", "==", user.uid).orderBy("createdAt", "desc").onSnapshot((snapshot) => {
-        const tempListings = [];
-        snapshot.forEach(doc => {
-          tempListings.push({...doc.data(), id: doc.id});
-        })
-        setListings(tempListings);
-      })
-
-      return subscriber
-    }, [])
-
+export default function Listings({data}) {
     return (
         <>
           <FlatList
-            data={listings}
+            data={data}
             renderItem={(data) => (<Listing listingData={data.item}/>)}
             keyExtractor={(item) => item.id}
             numColumns={3}

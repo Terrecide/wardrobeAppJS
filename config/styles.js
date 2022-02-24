@@ -17,7 +17,8 @@ const fontSizes = {
   xl: 36
 }
 
-const paddings = {
+const spacing = {
+  none: 0,
   xs: 4,
   small: 8,
   regular: 16,
@@ -30,4 +31,4 @@ const defaultText = {
   fontSize: fontSizes.regular,
 }
 
-export { colors, fontSizes, paddings, defaultText }
+export { colors, fontSizes, spacing, defaultText }
