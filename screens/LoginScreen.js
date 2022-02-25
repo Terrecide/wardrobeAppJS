@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet } from 'react-native'
+import { KeyboardAvoidingView } from 'react-native'
 import * as Yup from "yup";
 import {
     ErrorMessage,
@@ -9,7 +9,7 @@ import {
 import { Formik } from "formik";
 import { auth } from '../firebase';
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen() {
     const [loginFailed, setLoginFailed] = useState(false);
 
     const validationSchema = Yup.object().shape({
@@ -18,7 +18,6 @@ export default function LoginScreen({ navigation }) {
     });
 
     const handleSignIn = ({ email, password }) => {
-        console.log(email, password)
         setLoginFailed(false);
         auth
         .signInWithEmailAndPassword(email, password)
@@ -65,40 +64,3 @@ export default function LoginScreen({ navigation }) {
         </KeyboardAvoidingView>
     )
 }
-
-const styles = StyleSheet.create({
-    buttonContainer: {
-        alignItems: 'center'
-    },
-    button: {
-        backgroundColor: 'blue',
-        color: 'white',
-        width: '100%',
-        padding: 15,
-        borderRadius: 10,
-        alignItems: 'center',
-        fontWeight: '700',
-        fontSize: 16
-    },
-    buttonOutline: {
-        backgroundColor: 'white',
-        borderColor: 'blue',
-        borderWidth: 2
-    },
-    inputContainer: {
-        width: '80%'
-    },
-    input: {
-        backgroundColor: 'white',
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-        borderRadius: 10,
-        marginTop: 5
-    },
-    text: {
-        color: 'white'
-    },
-    textOutline: {
-        color: 'blue'
-    }
-})
