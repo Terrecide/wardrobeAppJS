@@ -7,6 +7,7 @@ import NotificationsScreen from '../screens/NotificationsScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import AddListingScreen from '../screens/AddListingScreen';
+import ListingDetailsScreen from "../screens/ListingDetailsScreen";
 import { Ionicons } from '@expo/vector-icons';
 import FeedNavigator from './FeedNavigator';
 import { auth } from '../firebase'
@@ -19,7 +20,7 @@ function HomeTabs() {
     return (
       <Tab.Navigator screenOptions={{tabBarShowLabel: false, tabBarInactiveTintColor: colors.black }}>
         <Tab.Screen options={{tabBarIcon: ({size, color}) => <Ionicons name="home-outline" size={size} color={color} />, headerShown: false}} name={routes.FEED} component={FeedNavigator} />
-        <Tab.Screen options={{tabBarIcon: ({size, color}) => <Ionicons name="search-outline" size={size} color={color} />}} name={routes.SEARCH} component={SearchScreen} />
+        <Tab.Screen options={{tabBarIcon: ({size, color}) => <Ionicons name="search-outline" size={size} color={color} />, headerShown: false}} name={routes.SEARCH} component={SearchScreen} />
         <Tab.Screen options={{tabBarIcon: ({size, color}) => <Ionicons name="add-circle" size={size*2} color={color} />}} name={routes.ADD_LISTING} component={AddListingScreen} />
         <Tab.Screen options={{tabBarIcon: ({size, color}) => <Ionicons name="mail-outline" size={size} color={color} />}} name={routes.NOTIFICATIONS} component={NotificationsScreen} />
         <Tab.Screen options={{tabBarIcon: ({size, color}) => <Ionicons name="person-outline" size={size} color={color} />}} name={routes.PROFILE} component={ProfileScreen} />
@@ -34,6 +35,10 @@ const AppNavigator = () => {
         <Stack.Navigator initialRouteName={initialRoute} screenOptions={{ headerShown: false }}>
             <Stack.Screen name={routes.REGISTER} component={RegisterScreen}/>
             <Stack.Screen name={routes.HOME_TABS} component={HomeTabs}/>
+            <Stack.Screen name={routes.LISTING_DETAILS} component={ListingDetailsScreen}
+                options={{title: false, headerShown: true, presentation: 'modal'}} 
+                /* how to set name as route header options={({route}) => ({ title: route.params.listingData.name})} */ 
+            />
         </Stack.Navigator>
     )
 }

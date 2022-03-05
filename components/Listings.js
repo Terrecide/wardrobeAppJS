@@ -7,7 +7,7 @@ function Listing({listingData}) {
   const navigation = useNavigation();
 
   function onPress() {
-      navigation.push(routes.LISTING_DETAILS, { listingData: listingData });
+      navigation.navigate(routes.LISTING_DETAILS, { listingData: listingData });
   }
 
   return (

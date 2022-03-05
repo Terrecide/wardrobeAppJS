@@ -53,7 +53,9 @@ export default function ListingDetailsScreen({ route }) {
                     <AppButton style={{minWidth: '30%', paddingVertical: spacing.none, paddingHorizontal: spacing.none }} title={'Купи'}/>
                 </View>
                 <Text style={{paddingBottom: spacing.xs}}><Text style={{fontWeight: 'bold'}}>{likes ? Object.keys(likes).length : 0} души</Text> са го харесали</Text>
+                <Text>{route.params.listingData.name}</Text>
                 <Text>{route.params.listingData.description}</Text>
+                <Text>{route.params.listingData.id}</Text>
             </View>
         </View>
     )

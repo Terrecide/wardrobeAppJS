@@ -19,7 +19,7 @@ function AppTextInput({ icon, width = "100%", ...otherProps }) {
         placeholderTextColor={colors.grey}
         style={[defaultText, {
           flex: 1,
-          padding: 15,
+          padding: spacing.small,
         }]}
         width={width}
         {...otherProps}
